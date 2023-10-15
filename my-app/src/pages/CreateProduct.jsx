@@ -56,24 +56,7 @@ const CreateProduct = () => {
   };
 
   const handleProductImageChange = async (e) => {
-    const file = e.target.files[0];
-    const base64 = await convertBase64(file);
-    setProductImage(base64);
-  };
-  // convert Base64
-  const convertBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
+    setProductImage(e.target.files[0]);
   };
   // Handle Add Product
   const handleAddProduct = () => {
@@ -88,9 +71,9 @@ const CreateProduct = () => {
     };
     setProducts([...products, newProduct]);
 
-    // Axios Post to json server
+    // Axios Post
     axios
-      .post("http://localhost:3000/product", newProduct)
+      .post("https://65224210f43b179384145703.mockapi.io/product/", newProduct)
       .then((res) => {
         console.log(res);
         navigate("/listproduct");
